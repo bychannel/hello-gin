@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hellogin
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-gin
+  template:
+    metadata:
+      labels:
+        app: hello-gin
+    spec:
+      containers:
+        - name: go-app-container
+          image: registry.cn-shanghai.aliyuncs.com/bysimon/hellogin:1.0.0
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 8888
+      imagePullSecrets:
+        - name: aliyun-registry
